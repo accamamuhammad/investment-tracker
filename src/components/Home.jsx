@@ -21,13 +21,13 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Data is displayed here</h1>
+    <div className="">
+      <h1 className="text-red-500 bg-red-500">Data is displayed here</h1>
       <ul>
         {data.map((investment, index) => {
           return (
             <li key={index}>
-              <p>{investment.name}</p>
+              <p className="text-3xl font-bold underline">{investment.name}</p>
               <p>{investment.category}</p>
               <p>{investment.emoji}</p>
               <p>{investment.amount}</p>
