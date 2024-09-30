@@ -9,27 +9,46 @@ const AddInvestment = () => {
   const [newInvestmentCategory, setNewInvestmentCategory] = useState("");
   const [newInvestmentDueDate, setNewInvestmentDueDate] = useState("");
   const [newInvestmentDescription, setNewInvestmentDescription] = useState("");
+  const [verified, setVerified] = useState(false);
+
+  const categoryStyling =
+    "px-3.5 py-2.5 rounded-full cursor-pointer bg-white hover:bg-blue-100 hover:opacity-75 flex items-center justify-center text-[13px]";
+
+  const categoryStylingActive =
+    "px-3.5 py-2.5 rounded-full cursor-pointer bg-blue-100 hover:bg-blue-100 hover:opacity-75 flex items-center justify-center text-[13px]";
 
   const saveData = async () => {
-    const db = getDatabase(app);
-    const investmentRef = push(ref(db, "Data/investments"));
-    set(investmentRef, {
-      name: newInvestmentName,
-      emoji: newInvestmentEmoji,
-      amount: newInvestmentAmount,
-      category: newInvestmentCategory,
-      due_date: newInvestmentDueDate,
-      description: newInvestmentDescription,
-    })
-      .then(() => {
-        alert("Data Saved");
+    if (verified) {
+      const db = getDatabase(app);
+      const investmentRef = push(ref(db, "Data/investments"));
+      set(investmentRef, {
+        name: newInvestmentName,
+        emoji: newInvestmentEmoji,
+        amount: newInvestmentAmount,
+        category: newInvestmentCategory,
+        due_date: newInvestmentDueDate,
+        description: newInvestmentDescription,
       })
-      .catch((err) => {
-        alert("error: ", err.message);
-      });
+        .then(() => {
+          alert("Data Saved");
+          setNewInvestmentName("");
+          setNewInvestmentEmoji("");
+          setNewInvestmentAmount("");
+          setNewInvestmentCategory("");
+          setNewInvestmentDueDate("");
+          setNewInvestmentDescription("");
+        })
+        .catch((err) => {
+          alert("error: ", err.message);
+        });
+    } else {
+      console.log("verification failed");
+    }
   };
 
-  const categorySelect = () => {};
+  const categorySelect = (category) => {
+    setNewInvestmentCategory(category);
+  };
 
   return (
     <div className="w-screen h-screen overflow-auto bg-newBlue flex items-center justify-center">
@@ -67,9 +86,9 @@ const AddInvestment = () => {
               ₦
             </div>
             <input
-              type="text"
+              type="number"
               placeholder="N200,000"
-              className="w-full h-12 pl-2.5 text-[12px] rounded-r-xl"
+              className="w-full h-12 pl-2.5 text-[12px] rounded-r-xl [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
               onChange={(e) => setNewInvestmentAmount(e.target.value)}
             />
           </div>
@@ -84,9 +103,9 @@ const AddInvestment = () => {
               %
             </div>
             <input
-              type="text"
+              type="number"
               placeholder="N20,000"
-              className="w-full h-12 pl-2.5 text-[12px] rounded-r-xl"
+              className="w-full h-12 pl-2.5 text-[12px] rounded-r-xl  [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
               onChange={(e) => setNewInvestmentDueDate(e.target.value)}
             />
           </div>
@@ -97,16 +116,44 @@ const AddInvestment = () => {
             Select Category
           </label>
           <div className="w-full flex gap-3 flex-row flex-wrap">
-            <div className="px-3.5 py-2.5 rounded-full cursor-pointer bg-white hover:bg-blue-100 hover:opacity-75 flex items-center justify-center text-[13px]">
+            <div
+              onClick={() => categorySelect("Airdrop")}
+              className={
+                newInvestmentCategory === "Airdrop"
+                  ? categoryStylingActive
+                  : categoryStyling
+              }
+            >
               🚀 <span className="pl-1.5 text-black opacity-50">Airdrop</span>
             </div>
-            <div className="px-3.5 py-2.5 rounded-full cursor-pointer bg-white hover:bg-blue-100 hover:opacity-75 flex items-center justify-center text-[13px]">
+            <div
+              onClick={() => categorySelect("Education")}
+              className={
+                newInvestmentCategory === "Education"
+                  ? categoryStylingActive
+                  : categoryStyling
+              }
+            >
               📖 <span className="pl-1.5 text-black opacity-50">Education</span>
             </div>
-            <div className="px-3.5 py-2.5 rounded-full cursor-pointer bg-white hover:bg-blue-100 hover:opacity-75 flex items-center justify-center text-[13px]">
+            <div
+              onClick={() => categorySelect("Commodity")}
+              className={
+                newInvestmentCategory === "Commodity"
+                  ? categoryStylingActive
+                  : categoryStyling
+              }
+            >
               🏆 <span className="pl-1.5 text-black opacity-50">Commodity</span>
             </div>
-            <div className="px-3.5 py-2.5 rounded-full cursor-pointer bg-white hover:bg-blue-100 hover:opacity-75 flex items-center justify-center text-[13px]">
+            <div
+              onClick={() => categorySelect("Forex")}
+              className={
+                newInvestmentCategory === "Forex"
+                  ? categoryStylingActive
+                  : categoryStyling
+              }
+            >
               💶 <span className="pl-1.5 text-black opacity-50">Forex</span>
             </div>
           </div>
