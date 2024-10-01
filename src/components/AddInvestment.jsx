@@ -1,16 +1,17 @@
 import { React, useState, useEffect } from "react";
 import app from "../config/firebase";
+import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, set, push } from "firebase/database";
 
 const AddInvestment = () => {
+  const navigate = useNavigate();
   const [newInvestmentName, setNewInvestmentName] = useState("");
   const [newInvestmentEmoji, setNewInvestmentEmoji] = useState("");
-  const [newInvestmentAmount, setNewInvestmentAmount] = useState("");
+  const [newInvestmentAmount, setNewInvestmentAmount] = useState(0);
   const [newInvestmentCategory, setNewInvestmentCategory] = useState("");
-  const [newInvestmentReturn, setNewInvestmentReturn] = useState("");
+  const [newInvestmentReturn, setNewInvestmentReturn] = useState(0);
   const [newInvestmentDescription, setNewInvestmentDescription] = useState("");
   const [percentageReturn, setPercentageReturn] = useState(0);
-  const [verified, setVerified] = useState(false);
   const [newInvestmentNameState, setNewInvestmentNameState] = useState(true);
   const [newInvestmentAmountState, setNewInvestmentAmountState] =
     useState(true);
@@ -43,35 +44,36 @@ const AddInvestment = () => {
   const textAreaStlyingError =
     "w-full h-28 resize-none p-2.5 text-[12px] rounded-lg border border-red-600";
 
+  const categorySelect = (category) => {
+    setNewInvestmentCategory(category);
+  };
+
   const saveData = async () => {
-    if (verified) {
-      const db = getDatabase(app);
-      const investmentRef = push(ref(db, "Data/investments"));
-      set(investmentRef, {
-        name: newInvestmentName,
-        emoji: newInvestmentEmoji,
-        category: newInvestmentCategory,
-        amount: newInvestmentAmount,
-        return: newInvestmentReturn,
-        profitPercent: percentageReturn,
-        description: newInvestmentDescription,
+    const db = getDatabase(app);
+    const investmentRef = push(ref(db, "Data/investments"));
+    set(investmentRef, {
+      title: newInvestmentName,
+      emoji: newInvestmentEmoji,
+      category: newInvestmentCategory,
+      amountInvested: newInvestmentAmount,
+      returnOnInvestmenr: newInvestmentReturn,
+      profitPercent: percentageReturn,
+      description: newInvestmentDescription,
+    })
+      .then(() => {
+        alert("Data Saved");
+        setNewInvestmentName("");
+        setNewInvestmentEmoji("");
+        setNewInvestmentAmount("");
+        setNewInvestmentCategory("");
+        setNewInvestmentReturn("");
+        setNewInvestmentDescription("");
+        setPercentageReturn(0);
+        navigate("/");
       })
-        .then(() => {
-          alert("Data Saved");
-          setNewInvestmentName("");
-          setNewInvestmentEmoji("");
-          setNewInvestmentAmount("");
-          setNewInvestmentCategory("");
-          setNewInvestmentReturn("");
-          setNewInvestmentDescription("");
-          setPercentageReturn(0);
-        })
-        .catch((err) => {
-          alert("error: ", err.message);
-        });
-    } else {
-      verificationProcess();
-    }
+      .catch((err) => {
+        alert("error: ", err.message);
+      });
   };
 
   const verificationProcess = () => {
@@ -80,10 +82,10 @@ const AddInvestment = () => {
       setNewInvestmentNameState(false);
     } else if (newInvestmentEmoji === "") {
       alert("Dont forget to change the icon emoji");
-    } else if (newInvestmentAmount === "") {
+    } else if ((newInvestmentAmount === 0) | (newInvestmentAmount === "")) {
       alert("Add an investment amount");
       setNewInvestmentAmountState(false);
-    } else if (newInvestmentReturn === "") {
+    } else if ((newInvestmentReturn === 0) | (newInvestmentReturn === "")) {
       alert("Select a return");
       setNewInvestmentReturnState(false);
     } else if (newInvestmentCategory === "") {
@@ -93,8 +95,6 @@ const AddInvestment = () => {
       alert("Dont forget to add the description");
       setNewInvestmentDescriptionState(false);
     } else {
-      alert("verfied");
-      setVerified(true);
       saveData();
     }
   };
@@ -125,12 +125,12 @@ const AddInvestment = () => {
 
   useEffect(() => {
     let AmtDiff = newInvestmentReturn - newInvestmentAmount;
-    setPercentageReturn(Math.floor((AmtDiff / newInvestmentAmount) * 100));
+    if (newInvestmentAmount < 1) {
+      setPercentageReturn(0);
+    } else {
+      setPercentageReturn(Math.floor((AmtDiff / newInvestmentAmount) * 100));
+    }
   }, [newInvestmentAmount, newInvestmentReturn]);
-
-  const categorySelect = (category) => {
-    setNewInvestmentCategory(category);
-  };
 
   return (
     <div className="w-screen h-screen overflow-auto bg-newBlue flex items-center justify-center">
@@ -265,7 +265,7 @@ const AddInvestment = () => {
           <a href={"/"}>cancel</a>
         </button> */}
         <button
-          onClick={saveData}
+          onClick={verificationProcess}
           className="w-full h-9 text-sm text-white rounded-lg bg-[rgba(26,27,28)]"
         >
           Proceed
