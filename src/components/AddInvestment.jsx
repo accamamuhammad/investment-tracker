@@ -9,9 +9,9 @@ const AddInvestment = () => {
   const [newInvestmentCategory, setNewInvestmentCategory] = useState("");
   const [newInvestmentReturn, setNewInvestmentReturn] = useState("");
   const [newInvestmentDescription, setNewInvestmentDescription] = useState("");
+  const [percentageReturn, setPercentageReturn] = useState(0);
   const [verified, setVerified] = useState(false);
   const [newInvestmentNameState, setNewInvestmentNameState] = useState(true);
-  const [newInvestmentEmojiState, setNewInvestmentEmojiState] = useState(true);
   const [newInvestmentAmountState, setNewInvestmentAmountState] =
     useState(true);
   const [newInvestmentCategoryState, setNewInvestmentCategoryState] =
@@ -37,6 +37,12 @@ const AddInvestment = () => {
   const inputContinerStylingError =
     "flex border-red-600 border flex-row bg-white items-center justify-start pl-2 rounded-xl";
 
+  const textAreaStlying =
+    "w-full h-28 resize-none p-2.5 text-[12px] rounded-lg";
+
+  const textAreaStlyingError =
+    "w-full h-28 resize-none p-2.5 text-[12px] rounded-lg border border-red-600";
+
   const saveData = async () => {
     if (verified) {
       const db = getDatabase(app);
@@ -44,9 +50,10 @@ const AddInvestment = () => {
       set(investmentRef, {
         name: newInvestmentName,
         emoji: newInvestmentEmoji,
-        amount: newInvestmentAmount,
         category: newInvestmentCategory,
-        due_date: newInvestmentReturn,
+        amount: newInvestmentAmount,
+        return: newInvestmentReturn,
+        profitPercent: percentageReturn,
         description: newInvestmentDescription,
       })
         .then(() => {
@@ -57,6 +64,7 @@ const AddInvestment = () => {
           setNewInvestmentCategory("");
           setNewInvestmentReturn("");
           setNewInvestmentDescription("");
+          setPercentageReturn(0);
         })
         .catch((err) => {
           alert("error: ", err.message);
@@ -114,6 +122,11 @@ const AddInvestment = () => {
     newInvestmentCategory,
     newInvestmentDescription,
   ]);
+
+  useEffect(() => {
+    let AmtDiff = newInvestmentReturn - newInvestmentAmount;
+    setPercentageReturn(Math.floor((AmtDiff / newInvestmentAmount) * 100));
+  }, [newInvestmentAmount, newInvestmentReturn]);
 
   const categorySelect = (category) => {
     setNewInvestmentCategory(category);
@@ -189,6 +202,7 @@ const AddInvestment = () => {
         <div className="w-full flex flex-col gap-2">
           <label htmlFor="title-icon" className="font-medium text-[14px]">
             Select Category
+            {percentageReturn}
           </label>
           <div
             className={`${newInvestmentCategoryState ? categoryContainerStyling : categoryContainerStylingError}`}
@@ -243,7 +257,7 @@ const AddInvestment = () => {
           <textarea
             type="text"
             placeholder="Short Description of investment"
-            className="w-full h-28 resize-none p-2.5 text-[12px] rounded-lg"
+            className={`${newInvestmentDescriptionState ? textAreaStlying : textAreaStlyingError}`}
             onChange={(e) => setNewInvestmentDescription(e.target.value)}
           />
         </div>
