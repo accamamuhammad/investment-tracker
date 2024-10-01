@@ -7,15 +7,35 @@ const AddInvestment = () => {
   const [newInvestmentEmoji, setNewInvestmentEmoji] = useState("");
   const [newInvestmentAmount, setNewInvestmentAmount] = useState("");
   const [newInvestmentCategory, setNewInvestmentCategory] = useState("");
-  const [newInvestmentDueDate, setNewInvestmentDueDate] = useState("");
+  const [newInvestmentReturn, setNewInvestmentReturn] = useState("");
   const [newInvestmentDescription, setNewInvestmentDescription] = useState("");
   const [verified, setVerified] = useState(false);
+  const [newInvestmentNameState, setNewInvestmentNameState] = useState(true);
+  const [newInvestmentEmojiState, setNewInvestmentEmojiState] = useState(true);
+  const [newInvestmentAmountState, setNewInvestmentAmountState] =
+    useState(true);
+  const [newInvestmentCategoryState, setNewInvestmentCategoryState] =
+    useState(true);
+  const [newInvestmentReturnState, setNewInvestmentReturnState] =
+    useState(true);
+  const [newInvestmentDescriptionState, setNewInvestmentDescriptionState] =
+    useState(true);
+
+  const categoryContainerStyling = "w-full flex gap-3 flex-row flex-wrap";
+  const categoryContainerStylingError =
+    "w-full flex gap-3 flex-row flex-wrap border border-red-600";
 
   const categoryStyling =
     "px-3.5 py-2.5 rounded-full cursor-pointer bg-white hover:bg-blue-100 hover:opacity-75 flex items-center justify-center text-[13px]";
 
   const categoryStylingActive =
     "px-3.5 py-2.5 rounded-full cursor-pointer bg-blue-100 hover:bg-blue-100 hover:opacity-75 flex items-center justify-center text-[13px]";
+
+  const inputContinerStyling =
+    "flex flex-row bg-white items-center justify-start pl-2 rounded-xl";
+
+  const inputContinerStylingError =
+    "flex border-red-600 border flex-row bg-white items-center justify-start pl-2 rounded-xl";
 
   const saveData = async () => {
     if (verified) {
@@ -26,7 +46,7 @@ const AddInvestment = () => {
         emoji: newInvestmentEmoji,
         amount: newInvestmentAmount,
         category: newInvestmentCategory,
-        due_date: newInvestmentDueDate,
+        due_date: newInvestmentReturn,
         description: newInvestmentDescription,
       })
         .then(() => {
@@ -35,16 +55,65 @@ const AddInvestment = () => {
           setNewInvestmentEmoji("");
           setNewInvestmentAmount("");
           setNewInvestmentCategory("");
-          setNewInvestmentDueDate("");
+          setNewInvestmentReturn("");
           setNewInvestmentDescription("");
         })
         .catch((err) => {
           alert("error: ", err.message);
         });
     } else {
-      console.log("verification failed");
+      verificationProcess();
     }
   };
+
+  const verificationProcess = () => {
+    if (newInvestmentName === "") {
+      alert("Add a Title");
+      setNewInvestmentNameState(false);
+    } else if (newInvestmentEmoji === "") {
+      alert("Dont forget to change the icon emoji");
+    } else if (newInvestmentAmount === "") {
+      alert("Add an investment amount");
+      setNewInvestmentAmountState(false);
+    } else if (newInvestmentReturn === "") {
+      alert("Select a return");
+      setNewInvestmentReturnState(false);
+    } else if (newInvestmentCategory === "") {
+      alert("Select a category");
+      setNewInvestmentCategoryState(false);
+    } else if (newInvestmentDescription === "") {
+      alert("Dont forget to add the description");
+      setNewInvestmentDescriptionState(false);
+    } else {
+      alert("verfied");
+      setVerified(true);
+      saveData();
+    }
+  };
+
+  useEffect(() => {
+    if (newInvestmentName !== "") {
+      setNewInvestmentNameState(true);
+    }
+    if (newInvestmentAmount !== "") {
+      setNewInvestmentAmountState(true);
+    }
+    if (newInvestmentReturn !== "") {
+      setNewInvestmentReturnState(true);
+    }
+    if (newInvestmentCategory === "") {
+      setNewInvestmentCategoryState(true);
+    }
+    if (newInvestmentDescription === "") {
+      setNewInvestmentDescriptionState(true);
+    }
+  }, [
+    newInvestmentName,
+    newInvestmentAmount,
+    newInvestmentReturn,
+    newInvestmentCategory,
+    newInvestmentDescription,
+  ]);
 
   const categorySelect = (category) => {
     setNewInvestmentCategory(category);
@@ -61,7 +130,9 @@ const AddInvestment = () => {
           <label htmlFor="title-icon" className="font-medium text-[14px]">
             Title & Icon
           </label>
-          <div className="flex flex-row bg-white items-center justify-start pl-2 rounded-xl">
+          <div
+            className={`${newInvestmentNameState ? inputContinerStyling : inputContinerStylingError}`}
+          >
             <input
               type="text"
               placeholder="📌"
@@ -81,7 +152,9 @@ const AddInvestment = () => {
           <label htmlFor="title-icon" className="font-medium text-[14px]">
             Investment Amount
           </label>
-          <div className="flex flex-row bg-white items-center justify-start pl-2 rounded-xl">
+          <div
+            className={`${newInvestmentAmountState ? inputContinerStyling : inputContinerStylingError}`}
+          >
             <div className="w-9 h-8 text-[15px] bg-newBlue rounded-md flex items-center justify-center">
               ₦
             </div>
@@ -98,7 +171,9 @@ const AddInvestment = () => {
           <label htmlFor="title-icon" className="font-medium text-[14px]">
             Estimated Return
           </label>
-          <div className="flex flex-row bg-white items-center justify-start pl-2 rounded-xl">
+          <div
+            className={`${newInvestmentReturnState ? inputContinerStyling : inputContinerStylingError}`}
+          >
             <div className="w-9 h-8 text-[15px] bg-newBlue rounded-md flex items-center justify-center">
               %
             </div>
@@ -106,7 +181,7 @@ const AddInvestment = () => {
               type="number"
               placeholder="N20,000"
               className="w-full h-12 pl-2.5 text-[12px] rounded-r-xl  [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
-              onChange={(e) => setNewInvestmentDueDate(e.target.value)}
+              onChange={(e) => setNewInvestmentReturn(e.target.value)}
             />
           </div>
         </div>
@@ -115,7 +190,9 @@ const AddInvestment = () => {
           <label htmlFor="title-icon" className="font-medium text-[14px]">
             Select Category
           </label>
-          <div className="w-full flex gap-3 flex-row flex-wrap">
+          <div
+            className={`${newInvestmentCategoryState ? categoryContainerStyling : categoryContainerStylingError}`}
+          >
             <div
               onClick={() => categorySelect("Airdrop")}
               className={
