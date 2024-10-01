@@ -61,7 +61,7 @@ const AddInvestment = () => {
       description: newInvestmentDescription,
     })
       .then(() => {
-        alert("Data Saved");
+        alert("New Investment");
         setNewInvestmentName("");
         setNewInvestmentEmoji("");
         setNewInvestmentAmount("");
@@ -133,27 +133,27 @@ const AddInvestment = () => {
   }, [newInvestmentAmount, newInvestmentReturn]);
 
   return (
-    <div className="w-screen h-screen overflow-auto bg-newBlue flex items-center justify-center">
+    <div className="w-screen h-fit py-2 px-5 bg-newBlue flex items-center justify-center">
       <div className="w-96 py-3 flex flex-col gap-5">
         <h1 className="text-black py-3 text-center font-semibold text-xl">
           Add Investment
         </h1>
         {/* Title and icon */}
         <div className="w-full flex flex-col gap-1">
-          <label htmlFor="title-icon" className="font-medium text-[14px]">
-            Title & Icon
-          </label>
+          <p className="font-medium text-[14px]">Title & Icon</p>
           <div
             className={`${newInvestmentNameState ? inputContinerStyling : inputContinerStylingError}`}
           >
             <input
               type="text"
+              id="title"
               placeholder="📌"
               className="w-8 h-8 pl-2 bg-newBlue rounded-md flex items-center justify-center"
               onChange={(e) => setNewInvestmentEmoji(e.target.value)}
             ></input>
             <input
               type="text"
+              id="icon"
               placeholder="Enter Title & Icon"
               className="w-full h-12 pl-2.5 text-[12px] rounded-r-xl"
               onChange={(e) => setNewInvestmentName(e.target.value)}
@@ -162,7 +162,7 @@ const AddInvestment = () => {
         </div>
         {/* investment amount */}
         <div className="w-full flex flex-col gap-1">
-          <label htmlFor="title-icon" className="font-medium text-[14px]">
+          <label htmlFor="Amount" className="font-medium text-[14px]">
             Investment Amount
           </label>
           <div
@@ -173,6 +173,7 @@ const AddInvestment = () => {
             </div>
             <input
               type="number"
+              id="Amount"
               placeholder="N200,000"
               className="w-full h-12 pl-2.5 text-[12px] rounded-r-xl [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
               onChange={(e) => setNewInvestmentAmount(e.target.value)}
@@ -181,7 +182,7 @@ const AddInvestment = () => {
         </div>
         {/* estimated return */}
         <div className="w-full flex flex-col gap-1">
-          <label htmlFor="title-icon" className="font-medium text-[14px]">
+          <label htmlFor="return" className="font-medium text-[14px]">
             Estimated Return
           </label>
           <div
@@ -192,6 +193,7 @@ const AddInvestment = () => {
             </div>
             <input
               type="number"
+              id="return"
               placeholder="N20,000"
               className="w-full h-12 pl-2.5 text-[12px] rounded-r-xl  [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
               onChange={(e) => setNewInvestmentReturn(e.target.value)}
@@ -200,10 +202,10 @@ const AddInvestment = () => {
         </div>
         {/* Category */}
         <div className="w-full flex flex-col gap-2">
-          <label htmlFor="title-icon" className="font-medium text-[14px]">
+          <p className="font-medium text-[14px]">
             Select Category
             {percentageReturn}
-          </label>
+          </p>
           <div
             className={`${newInvestmentCategoryState ? categoryContainerStyling : categoryContainerStylingError}`}
           >
@@ -251,11 +253,12 @@ const AddInvestment = () => {
         </div>
         {/* Description */}
         <div className="w-full flex flex-col gap-1">
-          <label htmlFor="title-icon" className="font-medium text-[14px]">
+          <label htmlFor="description" className="font-medium text-[14px]">
             Description
           </label>
           <textarea
             type="text"
+            id="description"
             placeholder="Short Description of investment"
             className={`${newInvestmentDescriptionState ? textAreaStlying : textAreaStlyingError}`}
             onChange={(e) => setNewInvestmentDescription(e.target.value)}
