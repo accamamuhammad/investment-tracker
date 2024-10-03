@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import Navigation from "./Navigation";
-import Piechart from "./Piechart";
 import DisplayBox from "./DisplayBox";
 import IncrementBox from "./IncrementBox";
 // import app from "../config/firebase";
@@ -61,7 +60,7 @@ const Home = () => {
           </h1>
         </div>
         <div>
-          <Piechart />
+          <div className="w-56 h-56 rounded-full bg-newBlue"></div>
         </div>
         <div className="w-full flex flex-row gap-5 items-center justify-between">
           <DisplayBox icon="💵" title="Capital" total="200,000" />
