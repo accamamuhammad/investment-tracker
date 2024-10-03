@@ -1,8 +1,8 @@
 import { React, useState, useEffect } from "react";
 import Navigation from "./Navigation";
-import Piechart from "./piechart";
+import Piechart from "./Piechart";
 import DisplayBox from "./DisplayBox";
-import IncestmentsBox from "./IncestmentsBox";
+import IncrementBox from "./IncrementBox";
 // import app from "../config/firebase";
 // import { ref, get, getDatabase } from "firebase/database";
 
@@ -72,7 +72,7 @@ const Home = () => {
           <div className="space-y-3">
             {data.map((items, index) => {
               return (
-                <IncestmentsBox
+                <IncrementBox
                   key={index}
                   icon={items.emoji}
                   title={items.title}
