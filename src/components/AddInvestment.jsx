@@ -56,7 +56,7 @@ const AddInvestment = () => {
       emoji: newInvestmentEmoji,
       category: newInvestmentCategory,
       amountInvested: newInvestmentAmount,
-      returnOnInvestmenr: newInvestmentReturn,
+      returnOnInvestment: newInvestmentReturn,
       profitPercent: percentageReturn,
       description: newInvestmentDescription,
     })
@@ -124,11 +124,19 @@ const AddInvestment = () => {
   ]);
 
   useEffect(() => {
-    let AmtDiff = newInvestmentReturn - newInvestmentAmount;
-    if (newInvestmentAmount < 1) {
+    if (
+      (newInvestmentAmount < 1) |
+      (newInvestmentAmount === NaN) |
+      (newInvestmentAmount === Infinity)
+    ) {
       setPercentageReturn(0);
     } else {
-      setPercentageReturn(Math.floor((AmtDiff / newInvestmentAmount) * 100));
+      setPercentageReturn(
+        Math.floor((newInvestmentReturn / newInvestmentAmount) * 100)
+      );
+      console.log(
+        Math.floor((newInvestmentReturn / newInvestmentAmount) * 100)
+      );
     }
   }, [newInvestmentAmount, newInvestmentReturn]);
 
@@ -183,13 +191,16 @@ const AddInvestment = () => {
         {/* estimated return */}
         <div className="w-full flex flex-col gap-1">
           <label htmlFor="return" className="font-medium text-[14px]">
-            Estimated Return
+            Total Return{" "}
+            <span className="opacity-45 font-regular text-[11px]">
+              (including profit)
+            </span>
           </label>
           <div
             className={`${newInvestmentReturnState ? inputContinerStyling : inputContinerStylingError}`}
           >
             <div className="w-9 h-8 text-[15px] bg-newBlue rounded-md flex items-center justify-center">
-              %
+              💸
             </div>
             <input
               type="number"
@@ -202,10 +213,7 @@ const AddInvestment = () => {
         </div>
         {/* Category */}
         <div className="w-full flex flex-col gap-2">
-          <p className="font-medium text-[14px]">
-            Select Category
-            {percentageReturn}
-          </p>
+          <p className="font-medium text-[14px]">Select Category</p>
           <div
             className={`${newInvestmentCategoryState ? categoryContainerStyling : categoryContainerStylingError}`}
           >
