@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const InvestmentsBox = (props) => {
+  const [profitState, setProfitState] = useState();
+
+  const handleProfitState = () => {
+    if (props.profit < 0) {
+      setProfitState("");
+    } else {
+      setProfitState("+");
+    }
+  };
+
+  useEffect(() => {
+    handleProfitState();
+  }, []);
+
   return (
     <div className="w-full h-[60px] px-2 mt-3 gap-3 bg-newBlue rounded-lg flex flex-row items-center justify-between">
       <div className="flex flex-row space-x-3">
@@ -13,9 +27,14 @@ const InvestmentsBox = (props) => {
         </div>
       </div>
       <div className="space-y-[1.5px] text-right">
-        <p className="text-[13px] font-medium">{props.investment}</p>
-        <p className="font-regular opacity-65 text-xs text-green-500">
-          +<span>{props.profit}</span>%
+        <p className="text-[13px] font-medium">
+          N<span>{props.TotalGain}</span>
+        </p>
+        <p
+          className={`${"font-regular opacity-65 text-xs"} ${profitState === "+" ? " text-green-500" : " text-red-500"}`}
+        >
+          <span>{profitState}</span>
+          <span>{props.profit}</span>%
         </p>
       </div>
     </div>

@@ -32,16 +32,16 @@ const AddInvestment = () => {
   const categoryStylingActive =
     "px-3.5 py-2.5 rounded-full cursor-pointer bg-blue-100 hover:bg-blue-100 hover:opacity-75 flex items-center justify-center text-[13px]";
 
-  const inputContinerStyling =
+  const inputContainerStyling =
     "flex flex-row bg-white items-center justify-start pl-2 rounded-xl";
 
-  const inputContinerStylingError =
+  const inputContainerStylingError =
     "flex border-red-600 border flex-row bg-white items-center justify-start pl-2 rounded-xl";
 
-  const textAreaStlying =
+  const textAreaStyling =
     "w-full h-28 resize-none p-2.5 text-[12px] rounded-lg";
 
-  const textAreaStlyingError =
+  const textAreaStylingError =
     "w-full h-28 resize-none p-2.5 text-[12px] rounded-lg border border-red-600";
 
   const categorySelect = (category) => {
@@ -130,9 +130,6 @@ const AddInvestment = () => {
       setPercentageReturn(
         Math.floor((newInvestmentReturn / newInvestmentAmount) * 100)
       );
-      console.log(
-        Math.floor((newInvestmentReturn / newInvestmentAmount) * 100)
-      );
     }
   }, [newInvestmentAmount, newInvestmentReturn]);
 
@@ -146,7 +143,7 @@ const AddInvestment = () => {
         <div className="w-full flex flex-col gap-1">
           <p className="font-medium text-[14px]">Title & Icon</p>
           <div
-            className={`${newInvestmentNameState ? inputContinerStyling : inputContinerStylingError}`}
+            className={`${newInvestmentNameState ? inputContainerStyling : inputContainerStylingError}`}
           >
             <input
               type="text"
@@ -170,7 +167,7 @@ const AddInvestment = () => {
             Investment Amount
           </label>
           <div
-            className={`${newInvestmentAmountState ? inputContinerStyling : inputContinerStylingError}`}
+            className={`${newInvestmentAmountState ? inputContainerStyling : inputContainerStylingError}`}
           >
             <div className="w-9 h-8 text-[15px] bg-newBlue rounded-md flex items-center justify-center">
               ₦
@@ -193,7 +190,7 @@ const AddInvestment = () => {
             </span>
           </label>
           <div
-            className={`${newInvestmentReturnState ? inputContinerStyling : inputContinerStylingError}`}
+            className={`${newInvestmentReturnState ? inputContainerStyling : inputContainerStylingError}`}
           >
             <div className="w-9 h-8 text-[15px] bg-newBlue rounded-md flex items-center justify-center">
               💸
@@ -264,7 +261,7 @@ const AddInvestment = () => {
             type="text"
             id="description"
             placeholder="Short Description of investment"
-            className={`${newInvestmentDescriptionState ? textAreaStlying : textAreaStlyingError}`}
+            className={`${newInvestmentDescriptionState ? textAreaStyling : textAreaStylingError}`}
             onChange={(e) => setNewInvestmentDescription(e.target.value)}
           />
         </div>

@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import Navigation from "./Navigation";
 import DisplayBox from "./DisplayBox";
-import IncrementBox from "./IncrementBox";
+import InvestmentBox from "./InvestmentBox";
 import app from "../config/firebase";
 import { ref, get, getDatabase } from "firebase/database";
 
@@ -45,12 +45,12 @@ const Home = () => {
           <div className="space-y-3">
             {data.map((items, index) => {
               return (
-                <IncrementBox
+                <InvestmentBox
                   key={index}
                   icon={items.emoji}
                   title={items.title}
                   category={items.category}
-                  investment={items.amountInvested}
+                  TotalGain={items.returnOnInvestment}
                   profit={items.profitPercent}
                 />
               );
