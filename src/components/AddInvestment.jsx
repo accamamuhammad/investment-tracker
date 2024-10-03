@@ -124,11 +124,7 @@ const AddInvestment = () => {
   ]);
 
   useEffect(() => {
-    if (
-      (newInvestmentAmount < 1) |
-      (newInvestmentAmount === NaN) |
-      (newInvestmentAmount === Infinity)
-    ) {
+    if (newInvestmentAmount < 1) {
       setPercentageReturn(0);
     } else {
       setPercentageReturn(

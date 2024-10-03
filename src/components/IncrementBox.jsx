@@ -1,6 +1,6 @@
 import React from "react";
 
-const IncestmentsBox = (props) => {
+const InvestmentsBox = (props) => {
   return (
     <div className="w-full h-[60px] px-2 mt-3 gap-3 bg-newBlue rounded-lg flex flex-row items-center justify-between">
       <div className="flex flex-row space-x-3">
@@ -22,4 +22,4 @@ const IncestmentsBox = (props) => {
   );
 };
 
-export default IncestmentsBox;
+export default InvestmentsBox;

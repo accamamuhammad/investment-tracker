@@ -2,52 +2,26 @@ import { React, useState, useEffect } from "react";
 import Navigation from "./Navigation";
 import DisplayBox from "./DisplayBox";
 import IncrementBox from "./IncrementBox";
-// import app from "../config/firebase";
-// import { ref, get, getDatabase } from "firebase/database";
+import app from "../config/firebase";
+import { ref, get, getDatabase } from "firebase/database";
 
 const Home = () => {
-  const [data, setData] = useState([
-    {
-      title: "Cats",
-      emoji: "🐈‍⬛",
-      category: "Airdrop",
-      profitPercent: 233,
-      amountInvested: 20000,
-      returnOnInvestment: 60000,
-    },
+  const [data, setData] = useState([]);
 
-    {
-      title: "Rocky Rabbit",
-      emoji: "🐰",
-      category: "Airdrop",
-      profitPercent: -50,
-      amountInvested: 5000,
-      returnOnInvestment: -2500,
-    },
-    {
-      title: "Dogs",
-      emoji: "🐕",
-      category: "Airdrop",
-      profitPercent: 0,
-      amountInvested: 0,
-      returnOnInvestment: 75000,
-    },
-  ]);
+  const fetchData = async () => {
+    const db = getDatabase(app);
+    const investmentRef = ref(db, "Data/investments");
+    const snapshot = await get(investmentRef);
+    if (snapshot.exists()) {
+      setData(Object.values(snapshot.val()));
+    } else {
+      console.log("no data");
+    }
+  };
 
-  // const fetchData = async () => {
-  //   const db = getDatabase(app);
-  //   const investmentRef = ref(db, "Data/investments");
-  //   const snapshot = await get(investmentRef);
-  //   if (snapshot.exists()) {
-  //     setData(Object.values(snapshot.val()));
-  //   } else {
-  //     console.log("no data");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <main className="w-screen h-screen bg-newBlue flex items-center justify-center">
@@ -83,23 +57,6 @@ const Home = () => {
             })}
           </div>
         </div>
-        {/* <h1 className="text-red-500 bg-red-500">Data is displayed here</h1>
-      <ul>
-        {data.map((investment, index) => {
-          return (
-            <li key={index}>
-              <p className="text-3xl font-bold underline">{investment.name}</p>
-              <p>{investment.category}</p>
-              <p>{investment.emoji}</p>
-              <p>{investment.amount}</p>
-              <p>{investment.due_date}</p>
-            </li>
-          );
-        })}
-      </ul>
-      <button>
-        <a href={"/addinvestment"}>New Investment</a>
-      </button> */}
       </div>
     </main>
   );
