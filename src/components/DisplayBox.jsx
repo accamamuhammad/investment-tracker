@@ -9,7 +9,7 @@ const DisplayBox = (props) => {
       <div className="space-y-[1px]">
         <p className="font-regular opacity-45 text-xs">{props.title}</p>
         <p className="text-[12px] font-medium">
-          + <span>N</span>
+          <span>N</span>
           <span>{props.total}</span>
         </p>
       </div>
