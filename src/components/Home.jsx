@@ -90,8 +90,8 @@ const Home = () => {
   }, [data]);
 
   return (
-    <main className="w-screen h-screen bg-newBlue flex items-center justify-center">
-      <div className="w-full sm:w-[385px] h-screen overflow-auto p-7 bg-white rounded-lg gap-5 flex flex-col items-center justify-between">
+    <main className="w-screen h-fit bg-newBlue flex items-center justify-center">
+      <div className="w-full sm:w-[385px] h-screenHeight overflow-auto p-7 bg-white rounded-lg gap-5 flex flex-col items-center justify-between">
         <Navigation />
         <div className="text-center space-y-1 mb-2">
           <p className="font-regular opacity-45 text-xs">Total Earnings</p>

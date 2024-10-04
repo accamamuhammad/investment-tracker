@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      height: {
+        screenHeight: "100dvh",
+      },
       colors: {
         newBlue: "rgb(247,248,249)",
       },
