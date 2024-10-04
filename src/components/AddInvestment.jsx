@@ -23,6 +23,7 @@ const AddInvestment = () => {
     useState(true);
 
   const categoryContainerStyling = "w-full flex gap-3 flex-row flex-wrap";
+
   const categoryContainerStylingError =
     "w-full flex gap-3 flex-row flex-wrap border border-red-600";
 
