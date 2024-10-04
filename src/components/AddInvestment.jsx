@@ -61,7 +61,7 @@ const AddInvestment = () => {
       description: newInvestmentDescription,
     })
       .then(() => {
-        alert("New Investment");
+        alert("New Investment Added");
         setNewInvestmentName("");
         setNewInvestmentEmoji("");
         setNewInvestmentAmount("");
