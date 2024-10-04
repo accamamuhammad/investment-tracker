@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   let baseStyling =
@@ -7,10 +8,10 @@ const Navigation = () => {
   return (
     <nav className="w-full flex flex-row items-center justify-between">
       <div className={baseStyling}>
-        <a href="/">👨🏽‍💻</a>
+        <Link to="/">👨🏽‍💻</Link>
       </div>
       <div className={baseStyling}>
-        <a href="/addinvestment">🚀</a>
+        <Link to="/addinvestment">🚀</Link>
       </div>
     </nav>
   );
