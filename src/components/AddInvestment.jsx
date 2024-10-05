@@ -1,10 +1,13 @@
 import { React, useState, useEffect } from "react";
-import app from "../config/firebase";
+import { app, auth } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, set, push } from "firebase/database";
 
 const AddInvestment = () => {
   const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState();
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [newInvestmentName, setNewInvestmentName] = useState("");
   const [newInvestmentEmoji, setNewInvestmentEmoji] = useState("");
   const [newInvestmentAmount, setNewInvestmentAmount] = useState(0);
@@ -45,13 +48,24 @@ const AddInvestment = () => {
   const textAreaStylingError =
     "w-full h-28 resize-none p-2.5 text-[12px] rounded-lg border border-red-600";
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserLoggedIn(true);
+        setCurrentUser(user);
+      } else {
+        setUserLoggedIn(false);
+      }
+    });
+  }, []);
+
   const categorySelect = (category) => {
     setNewInvestmentCategory(category);
   };
 
   const saveData = async () => {
     const db = getDatabase(app);
-    const investmentRef = push(ref(db, "Data/investments"));
+    const investmentRef = push(ref(db, `Data/${currentUser.uid}`));
     set(investmentRef, {
       title: newInvestmentName,
       emoji: newInvestmentEmoji,

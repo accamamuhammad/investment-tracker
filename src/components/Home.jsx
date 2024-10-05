@@ -2,14 +2,17 @@ import { React, useState, useEffect } from "react";
 import Navigation from "./Navigation";
 import DisplayBox from "./DisplayBox";
 import InvestmentBox from "./InvestmentBox";
-import app from "../config/firebase";
+import { app, auth } from "../config/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import { ref, get, getDatabase } from "firebase/database";
 
 const Home = () => {
   const [data, setData] = useState([]);
-  const [totalProfit, setTotalProfit] = useState();
-  const [totalInvestment, setTotalInvestment] = useState();
-  const [totalLosses, setTotalLosses] = useState();
+  const [currentUser, setCurrentUser] = useState();
+  const [totalProfit, setTotalProfit] = useState(0);
+  const [totalInvestment, setTotalInvestment] = useState(0);
+  const [totalLosses, setTotalLosses] = useState(0);
+  const [userLogInStatus, setUserLogInStatus] = useState(false);
   let lossSum = 0;
   let returnSum = 0;
   let investmentSum = 0;
@@ -17,25 +20,35 @@ const Home = () => {
   let allInvestment = [];
   let allReturnOnInvestment = [];
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+        setUserLogInStatus(true);
+      } else {
+        setUserLogInStatus(false);
+      }
+    });
+  }, []);
+
   // fetch data
   const fetchData = async () => {
     const db = getDatabase(app);
-    const investmentRef = ref(db, "Data/investments");
-
+    const investmentRef = ref(db, `Data/${currentUser?.uid}/investments`);
     try {
       const snapshot = await get(investmentRef);
-      if (snapshot.exists()) {
+      if (snapshot.exists() && userLogInStatus) {
         setData(Object.values(snapshot.val()));
       } else {
-        console.log("No data");
+        if (snapshot.exists()) {
+          console.log("user not logged in");
+        } else {
+          console.log("could not get data");
+        }
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };
-
-  const Status = () => {
-    console.log("Data fetched");
   };
 
   // format data e.g 5000 = 5,000
@@ -81,7 +94,7 @@ const Home = () => {
   // run once to avoid over rendering
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     calculateTotalProfit();
