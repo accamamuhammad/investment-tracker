@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "../config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
@@ -35,7 +35,9 @@ const SignUp = () => {
   return (
     <div className="w-screen h-screen py-2 px-5 bg-newBlue flex items-center justify-center">
       <div className="w-96 py-3 flex flex-col gap-4 items-center">
-        <h1 className="text-6xl mb-6">👨🏽‍💻</h1>
+        <h1 className="text-6xl mb-6">
+          <Link to="/">👨🏽‍💻</Link>
+        </h1>
         {/* Username */}
         <div className="w-full flex flex-col gap-1">
           <label htmlFor="username" className="font-medium text-[14px]">

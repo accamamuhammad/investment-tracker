@@ -65,7 +65,9 @@ const AddInvestment = () => {
 
   const saveData = async () => {
     const db = getDatabase(app);
-    const investmentRef = push(ref(db, `Data/${currentUser.uid}`));
+    const investmentRef = push(
+      ref(db, `AllUserData/${currentUser?.uid}/investments`)
+    );
     set(investmentRef, {
       title: newInvestmentName,
       emoji: newInvestmentEmoji,

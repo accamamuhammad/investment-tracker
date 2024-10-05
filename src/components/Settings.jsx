@@ -21,6 +21,9 @@ const Settings = () => {
       >
         <Link to="/">Log Out</Link>
       </button>
+      <button className="w-full h-10 opacity-95 hover:opacity-85 text-sm font-medium mt-1 text-white rounded-lg bg-[rgba(26,27,28)]">
+        <Link to="/">Back</Link>
+      </button>
     </div>
   );
 };

@@ -34,7 +34,10 @@ const Home = () => {
   // fetch data
   const fetchData = async () => {
     const db = getDatabase(app);
-    const investmentRef = ref(db, `Data/${currentUser?.uid}/investments`);
+    const investmentRef = ref(
+      db,
+      `AllUserData/${currentUser?.uid}/investments`
+    );
     try {
       const snapshot = await get(investmentRef);
       if (snapshot.exists() && userLogInStatus) {
@@ -42,8 +45,6 @@ const Home = () => {
       } else {
         if (snapshot.exists()) {
           console.log("user not logged in");
-        } else {
-          console.log("could not get data");
         }
       }
     } catch (error) {

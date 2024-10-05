@@ -28,7 +28,9 @@ const LogIn = () => {
   return (
     <div className="w-screen h-screen py-2 px-5 bg-newBlue flex items-center justify-center">
       <div className="w-96 py-3 flex flex-col gap-6 items-center">
-        <h1 className="text-6xl mb-6">👨🏽‍💻</h1>
+        <h1 className="text-6xl mb-6">
+          <Link to="/">👨🏽‍💻</Link>
+        </h1>
         <form className="w-full flex flex-col gap-6" onSubmit={handleLogin}>
           {/* Email */}
           <div className="w-full flex flex-col gap-1">
