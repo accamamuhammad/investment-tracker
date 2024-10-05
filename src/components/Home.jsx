@@ -114,7 +114,22 @@ const Home = () => {
           </h1>
         </div>
         <div>
-          <div className="w-56 h-56 rounded-full bg-newBlue"></div>
+          <div className="w-56 h-56 rounded-full bg-newBlue flex items-center justify-center">
+            {userLogInStatus ? (
+              <div>
+                <h1 className="font-semibold text-xs opacity-55">Piechart</h1>
+              </div>
+            ) : (
+              <div className="space-y-5">
+                <h1 className="px-1 text-center font-semibold text-xs opacity-55">
+                  Click the "🚀" To add new investment
+                </h1>
+                <h1 className="px-1 text-center font-semibold text-xs opacity-55">
+                  Click the "⚙️" To access settings
+                </h1>
+              </div>
+            )}
+          </div>
         </div>
         <div className="w-full flex flex-row gap-5 items-center justify-between">
           <DisplayBox icon="📉" title="Loss" total={totalLosses} />
