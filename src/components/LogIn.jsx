@@ -11,7 +11,7 @@ const LogIn = () => {
             Username
           </label>
           <div className="flex flex-row bg-white items-center justify-start pl-2 rounded-xl">
-            <div className="w-9 h-8 text-[15px] bg-newBlue rounded-md flex items-center justify-center">
+            <div className="w-9 h-8 text-[16px] bg-newBlue rounded-md flex items-center justify-center">
               👑
             </div>
             <input
