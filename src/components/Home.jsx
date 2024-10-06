@@ -61,12 +61,16 @@ const Home = () => {
   // calculate Loss
   const calculateLoss = () => {
     for (let index = 0; index < data.length; index++) {
-      const element = Number(data[index].returnOnInvestment);
-      if (element < 0) {
-        allLosses.push(element);
+      const returnOn = Number(data[index].returnOnInvestment);
+      const amountOf = Number(data[index].amountInvested);
+
+      let lossAmount = returnOn - amountOf;
+      if (lossAmount < 0) {
+        allLosses.push(lossAmount);
       }
     }
     for (let index = 0; index < allLosses.length; index++) {
+      console.log("a");
       lossSum += allLosses[index];
       setTotalLosses(lossSum);
     }
@@ -98,9 +102,9 @@ const Home = () => {
   }, [currentUser]);
 
   useEffect(() => {
+    calculateLoss();
     calculateTotalProfit();
     calculateTotalInvested();
-    calculateLoss();
   }, [data]);
 
   return (

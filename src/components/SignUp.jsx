@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth, googleProvider } from "../config/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState();
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   const SignIn = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      setEmail("");
-      setPassword("");
       setUserLoggedIn(true);
       navigate("/");
+      setEmail("");
+      setPassword("");
     } catch (err) {
       console.error(err);
     }
@@ -25,6 +25,7 @@ const SignUp = () => {
     try {
       await signInWithPopup(auth, googleProvider);
       setUserLoggedIn(true);
+      saveData();
     } catch (err) {
       console.error(err);
     }
@@ -38,9 +39,27 @@ const SignUp = () => {
         <h1 className="text-6xl mb-6">
           <Link to="/">👨🏽‍💻</Link>
         </h1>
-        {/* Username */}
+        {/*  username */}
         <div className="w-full flex flex-col gap-1">
           <label htmlFor="username" className="font-medium text-[14px]">
+            Username
+          </label>
+          <div className="flex flex-row bg-white items-center justify-start pl-2 rounded-xl">
+            <div className="w-9 h-8 text-[15px] bg-newBlue rounded-md flex items-center justify-center">
+              😎
+            </div>
+            <input
+              type="text"
+              id="username"
+              placeholder="Enter a username"
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full h-12 pl-2.5 text-[12px] rounded-r-xl  [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+            />
+          </div>
+        </div>
+        {/* Email */}
+        <div className="w-full flex flex-col gap-1">
+          <label htmlFor="email" className="font-medium text-[14px]">
             Email
           </label>
           <div className="flex flex-row bg-white items-center justify-start pl-2 rounded-xl">
@@ -49,7 +68,7 @@ const SignUp = () => {
             </div>
             <input
               type="email"
-              id="username"
+              id="email"
               placeholder="Enter an email"
               onChange={(e) => setEmail(e.target.value)}
               className="w-full h-12 pl-2.5 text-[12px] rounded-r-xl  [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
@@ -74,7 +93,6 @@ const SignUp = () => {
             />
           </div>
         </div>
-
         <div className="w-full flex flex-col gap-2 items-center">
           <button
             onClick={SignIn}

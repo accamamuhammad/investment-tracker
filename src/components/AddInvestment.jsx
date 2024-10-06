@@ -144,9 +144,9 @@ const AddInvestment = () => {
     if (newInvestmentAmount < 1) {
       setPercentageReturn(0);
     } else {
-      setPercentageReturn(
-        Math.floor((newInvestmentReturn / newInvestmentAmount) * 100)
-      );
+      let firstStep = newInvestmentReturn - newInvestmentAmount;
+      let secondStep = firstStep / newInvestmentAmount;
+      setPercentageReturn(Math.floor(secondStep * 100));
     }
   }, [newInvestmentAmount, newInvestmentReturn]);
 

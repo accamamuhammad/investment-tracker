@@ -23,7 +23,7 @@ const Navigation = () => {
   return (
     <nav className="w-full flex flex-row items-center justify-between">
       <div
-        className={`${baseStyling} ${userLogInStatus ? "" : "w-7 h-7 border-[1.5px] border-black"}`}
+        className={`${baseStyling} ${userLogInStatus ? "" : "w-[26px] h-[26px] border-[1.5px] border-black"}`}
       >
         <Link to={userLogInStatus ? "/Settings" : "/SignUp"}>
           {userLogInStatus ? (
