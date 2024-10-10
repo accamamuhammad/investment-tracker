@@ -99,7 +99,7 @@ const Settings = () => {
         </div>
         <button
           onClick={SignOutUser}
-          className="w-full h-12 mx-5 shadow opacity-95 hover:opacity-85 text-sm font-medium mt-1 text-white rounded-lg bg-[rgba(26,27,28)]"
+          className="w-[95.5%] sm:w-[385px] h-12 absolute bottom-5 mx-5 shadow text-sm font-medium mt-1 text-white rounded-lg bg-[rgba(26,27,28)] hover:bg-[rgba(2,22,22)]"
         >
           <Link to="/">Log Out</Link>
         </button>
