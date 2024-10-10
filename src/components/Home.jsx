@@ -70,7 +70,6 @@ const Home = () => {
       }
     }
     for (let index = 0; index < allLosses.length; index++) {
-      console.log("a");
       lossSum += allLosses[index];
       setTotalLosses(lossSum);
     }
