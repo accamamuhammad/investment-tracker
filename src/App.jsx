@@ -4,6 +4,7 @@ import AddInvestment from "./components/AddInvestment";
 import LogIn from "./components/LogIn";
 import SignUp from "./components/SignUp";
 import Settings from "./components/Settings";
+import UpdateData from "./components/UpdateData";
 import "./index.css";
 
 function App() {
@@ -13,9 +14,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/addinvestment" element={<AddInvestment />} />
-          <Route path="/LogIn" element={<LogIn />} />
-          <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/Settings" element={<Settings />} />
+          <Route path="/logIn" element={<LogIn />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/updateData" element={<UpdateData />} />
         </Routes>
       </Router>
     </>

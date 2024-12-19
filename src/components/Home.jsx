@@ -20,6 +20,7 @@ const Home = () => {
   let allInvestment = [];
   let allReturnOnInvestment = [];
 
+  //* Check if user is logged in
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -31,7 +32,7 @@ const Home = () => {
     });
   }, []);
 
-  // fetch data
+  //* fetch data
   const fetchData = async () => {
     const db = getDatabase(app);
     const investmentRef = ref(
@@ -52,13 +53,13 @@ const Home = () => {
     }
   };
 
-  // format data e.g 5000 = 5,000
+  //* format data e.g 5000 = 5,000
   const formatNumber = (input) => {
     const formatter = new Intl.NumberFormat("en-US");
     return formatter.format(input);
   };
 
-  // calculate Loss
+  //* calculate Loss
   const calculateLoss = () => {
     for (let index = 0; index < data.length; index++) {
       const returnOn = Number(data[index].returnOnInvestment);
@@ -75,7 +76,7 @@ const Home = () => {
     }
   };
 
-  // Total Profit
+  //* Total Profit
   const calculateTotalProfit = () => {
     for (let index = 0; index < data.length; index++) {
       const element = Number(data[index].returnOnInvestment);
@@ -85,7 +86,7 @@ const Home = () => {
     }
   };
 
-  // Total investment
+  //* Total investment
   const calculateTotalInvested = () => {
     for (let index = 0; index < data.length; index++) {
       const element = Number(data[index].amountInvested);
@@ -95,7 +96,7 @@ const Home = () => {
     }
   };
 
-  // run once to avoid over rendering
+  //* run once to avoid over rendering
   useEffect(() => {
     fetchData();
   }, [currentUser]);
@@ -105,6 +106,15 @@ const Home = () => {
     calculateTotalProfit();
     calculateTotalInvested();
   }, [data]);
+
+  //* Check if they is data in
+  useEffect(() => {
+    if (data.length === 0) {
+      console.log("empty array");
+    } else {
+      console.log("not empty array");
+    }
+  }, []);
 
   return (
     <main className="w-screen h-fit bg-newBlue flex items-center justify-center">
@@ -139,7 +149,7 @@ const Home = () => {
           <DisplayBox icon="💰" title="Invested" total={totalInvestment} />
         </div>
         <div className="w-full space-y-1">
-          <p className="font-semibold text-[15px] opacity-45">Investments</p>
+          <p className="font-semibold opacity-45">Investments</p>
           <div className="space-y-3">
             {data.map((items, index) => {
               return (
@@ -153,6 +163,11 @@ const Home = () => {
                 />
               );
             })}
+            <p
+              className={`${data.length === 0 ? "flex" : "hidden"} ${" opacity-80 font-medium w-full text-[15px] mt-5 flex items-center justify-center"}`}
+            >
+              click on "🚀" to add new investment
+            </p>
           </div>
         </div>
       </div>

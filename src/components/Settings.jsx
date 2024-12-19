@@ -34,7 +34,7 @@ const Settings = () => {
           </div>
           <div className="w-full mx-5 space-y-6 flex flex-col items-center justify-center">
             {/* User icon */}
-            <div className="w-44 h-44 shadow bg-newBlue rounded-full"></div>
+            <div className="w-44 h-44 shadow bg-newBlue rounded-full flex items-center justify-center"></div>
             {/* User name */}
             <h1 className="font-semibold text-2xl">Ahmad Muhammad</h1>
           </div>

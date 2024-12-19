@@ -18,7 +18,7 @@ const SignUp = () => {
       setEmail("");
       setPassword("");
     } catch (err) {
-      console.error(err);
+      alert(err);
     }
   };
 
@@ -28,7 +28,7 @@ const SignUp = () => {
       setUserLoggedIn(true);
       saveData();
     } catch (err) {
-      console.error(err);
+      alert(err);
     }
     setEmail("");
     setPassword("");
