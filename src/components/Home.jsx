@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import Navigation from "./Navigation";
-import DisplayBox from "./DisplayBox";
+import { Link } from "react-router-dom";
 import InvestmentBox from "./InvestmentBox";
 import { app, auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -149,26 +149,74 @@ const Home = () => {
   }, [data]);
 
   return (
-    <main className="w-screen h-fit bg-newBlue flex items-center justify-center">
-      <div className="w-full sm:w-[385px] h-screenHeight overflow-auto p-7 bg-white rounded-lg gap-5 flex flex-col items-center justify-between">
+    <main className="w-screen h-fit bg-secBg flex items-center justify-center">
+      <div className="w-full sm:w-[385px] min-h-screen h-fit overflow-auto p-5 gap-9 bg-mainBg flex flex-col items-center justify-start">
         <Navigation />
-        <div className="text-center space-y-1 mb-2">
-          <p className="font-regular opacity-45 text-xs">Total Earnings</p>
-          <h1 className="font-bold text-3xl">
-            N <span>{totalProfit}</span>
-          </h1>
-        </div>
-        <div>
+        {/* Main Header */}
+        <div className="text-center space-y-6">
           {/* Pie Chart */}
-          <Pie options={options} data={pieChartData} />
+          {/* <Pie options={options} data={pieChartData} /> */}
+          <p className="text-sm">
+            Last update: <span className="opacity-55">Friday, 12:45</span>
+          </p>
+          <div className="w-[310px] h-[310px] border-yellow-300 border rounded-full gap-1.5 flex items-center justify-center flex-col">
+            <p className="font-medium opacity-65 text-2xl">Total Earnings</p>
+            <h1 className="font-bold text-3xl">
+              N <span>{totalProfit}</span>
+            </h1>
+          </div>
         </div>
-        <div className="w-full flex flex-row gap-5 items-center justify-between">
+        {/* <div className="w-full flex flex-row gap-5 items-center justify-between">
           <DisplayBox icon="📉" title="Loss" total={totalLosses} />
           <DisplayBox icon="💰" title="Invested" total={totalInvestment} />
+        </div> */}
+        {/* Assets Allocation */}
+        <div className="w-full flex flex-row items-center justify-between px-3">
+          <div className="flex flex-col gap-2.5 items-center justify-center">
+            <div className="w-4 h-4 bg-[#63EDFC] rounded-full" />
+            <p className="text-sm opacity-65 font-medium leading-5">Web3</p>
+            <span className="font-medium opacity-70 text-[12px] leading-[2.5px]">
+              35%
+            </span>
+          </div>
+          <div className="flex flex-col gap-2.5 items-center justify-center">
+            <div className="w-4 h-4 bg-[#FFE459] rounded-full" />
+            <p className="text-sm opacity-65 font-medium leading-5">
+              Education
+            </p>
+            <span className="font-medium opacity-70 text-[12px] leading-[2.5px]">
+              35%
+            </span>
+          </div>
+          <div className="flex flex-col gap-2.5 items-center justify-center">
+            <div className="w-4 h-4 bg-[#BF47E7] rounded-full" />
+            <p className="text-sm opacity-65 font-medium leading-5">Web3</p>
+            <span className="font-medium opacity-70 text-[12px] leading-[2.5px]">
+              35%
+            </span>
+          </div>
+          <div className="flex flex-col gap-2.5 items-center justify-center">
+            <div className="w-4 h-4 bg-[#E991F0] rounded-full" />
+            <p className="text-sm opacity-65 font-medium leading-5">Web3</p>
+            <span className="font-medium opacity-70 text-[12px] leading-[2.5px]">
+              35%
+            </span>
+          </div>
         </div>
-        <div className="w-full space-y-1">
-          <p className="font-semibold opacity-45">Investments</p>
-          <div className="space-y-3">
+        {/* All Assets Header */}
+        <div className="w-full space-y-3">
+          <div className="w-full h-[1px] bg-white opacity-45 mb-4"></div>
+          <div className="w-full flex items-end justify-between">
+            <p className="font-semibold opacity-55">Assets</p>
+            <Link
+              to={"/addinvestment"}
+              className="text-sm font-semibold opacity-55 cursor-pointer hover:opacity-75"
+            >
+              Add new {">"}
+            </Link>
+          </div>
+          {/* All Assets */}
+          <div className="space-y-4 pt-0.5">
             {data.map((items, index) => {
               return (
                 <InvestmentBox
@@ -182,9 +230,9 @@ const Home = () => {
               );
             })}
             <p
-              className={`${data.length === 0 ? "flex" : "hidden"} ${" opacity-80 font-medium w-full text-[15px] mt-5 flex items-center justify-center"}`}
+              className={`${data.length === 0 ? "flex" : "hidden"} ${" opacity-70 font-medium w-full text-[15px] mt-5 flex items-center justify-center"}`}
             >
-              click on "🚀" to add new investment
+              No Investments 😔
             </p>
           </div>
         </div>

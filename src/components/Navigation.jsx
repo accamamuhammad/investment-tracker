@@ -3,12 +3,14 @@ import { auth } from "../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { Link } from "react-router-dom";
 import UserIcon from "../assets/user.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGear, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = () => {
   const [userLogInStatus, setUserLogInStatus] = useState(false);
 
   let baseStyling =
-    "w-9 h-9 shadow-sm text-white bg-neutral-50 hover:bg-neutral-100 cursor-pointer rounded-full flex items-center justify-center font-bold text-xl";
+    "w-9 h-9 shadow-sm text-white cursor-pointer rounded-full flex items-center justify-center font-bold text-xl";
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -22,19 +24,19 @@ const Navigation = () => {
 
   return (
     <nav className="w-full flex flex-row items-center justify-between">
+      <div className={baseStyling}>
+        <h1 className="pl-8 opacity-70">Investo</h1>
+      </div>
       <div
-        className={`${baseStyling} ${userLogInStatus ? "" : "w-[26px] h-[26px] border-[1.5px] border-black"}`}
+        className={`${baseStyling} ${userLogInStatus ? "" : "w-[26px] h-[26px]"}`}
       >
         <Link to={userLogInStatus ? "/Settings" : "/SignUp"}>
           {userLogInStatus ? (
-            "⚙️"
+            <FontAwesomeIcon icon={faGear} />
           ) : (
-            <img src={UserIcon} alt="SigUp" className="h-5" />
+            <FontAwesomeIcon icon={faUser} color="white" />
           )}
         </Link>
-      </div>
-      <div className={baseStyling}>
-        <Link to={userLogInStatus ? "/addinvestment" : "/SignUp"}>🚀</Link>
       </div>
     </nav>
   );

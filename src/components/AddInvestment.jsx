@@ -151,7 +151,7 @@ const AddInvestment = () => {
   }, [newInvestmentAmount, newInvestmentReturn]);
 
   return (
-    <div className="w-screen h-fit py-2 px-5 bg-newBlue flex items-center justify-center">
+    <div className="w-screen h-fit py-2 px-5 text-black bg-newBlue flex items-center justify-center">
       <div className="w-96 py-3 flex flex-col gap-5">
         <h1 className="text-black py-3 text-center font-semibold text-xl">
           Add Investment
@@ -228,14 +228,14 @@ const AddInvestment = () => {
             className={`${newInvestmentCategoryState ? categoryContainerStyling : categoryContainerStylingError}`}
           >
             <div
-              onClick={() => categorySelect("Airdrop")}
+              onClick={() => categorySelect("Web3")}
               className={
-                newInvestmentCategory === "Airdrop"
+                newInvestmentCategory === "Web3"
                   ? categoryStylingActive
                   : categoryStyling
               }
             >
-              🚀 <span className="pl-1.5 text-black opacity-50">Airdrop</span>
+              🚀 <span className="pl-1.5 text-black opacity-50">web3</span>
             </div>
             <div
               onClick={() => categorySelect("Education")}
@@ -258,14 +258,14 @@ const AddInvestment = () => {
               🏆 <span className="pl-1.5 text-black opacity-50">Commodity</span>
             </div>
             <div
-              onClick={() => categorySelect("Forex")}
+              onClick={() => categorySelect("Selfcare")}
               className={
-                newInvestmentCategory === "Forex"
+                newInvestmentCategory === "Selfcare"
                   ? categoryStylingActive
                   : categoryStyling
               }
             >
-              💶 <span className="pl-1.5 text-black opacity-50">Forex</span>
+              💶 <span className="pl-1.5 text-black opacity-50">Selfcare</span>
             </div>
           </div>
         </div>
