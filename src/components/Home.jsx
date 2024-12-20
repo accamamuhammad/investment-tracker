@@ -149,7 +149,7 @@ const Home = () => {
   }, [data]);
 
   return (
-    <main className="w-screen h-fit bg-secBg flex items-center justify-center">
+    <main className="h-fit bg-secBg flex items-center justify-center overflow-x-hidden">
       <div className="w-full sm:w-[385px] min-h-screen h-fit overflow-auto p-5 gap-9 bg-mainBg flex flex-col items-center justify-start">
         <Navigation />
         {/* Main Header */}
